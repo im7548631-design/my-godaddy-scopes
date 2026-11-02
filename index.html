@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoDaddy OAuth Scopes</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 2rem; max-width: 800px; margin: auto; }
+    ul { background: #f4f4f5; padding: 1.5rem 2.5rem; border-radius: 8px; }
+    li { margin-bottom: 0.5rem; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <h1>GoDaddy OAuth Scopes</h1>
+  <ul id="scopes-list">Loading...</ul>
+
+  <script>
+    fetch('./api/scope.json')
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById('scopes-list');
+        list.innerHTML = data.scopes.map(scope => `<li>${scope}</li>`).join('');
+      })
+      .catch(err => {
+        document.getElementById('scopes-list').innerHTML = 'Error loading scopes.';
+        console.error(err);
+      });
+  </script>
+</body>
+</html>
